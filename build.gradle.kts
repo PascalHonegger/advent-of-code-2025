@@ -13,3 +13,13 @@ tasks {
         gradleVersion = "9.2.1"
     }
 }
+
+kotlin {
+    jvmToolchain(25)
+
+}
+
+java {
+    // Kotlin 2.2 doesn't support Java 25 as target yet
+    targetCompatibility = JavaVersion.VERSION_24
+}
