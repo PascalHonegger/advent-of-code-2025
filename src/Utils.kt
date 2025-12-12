@@ -41,6 +41,13 @@ inline fun <reified T> MutableMap<T, Int>.increase(key: T, by: Int = 1): Int {
     return newValue
 }
 
+inline fun <reified T> MutableMap<T, Long>.increase(key: T, by: Long = 1): Long {
+    val existingValue = this[key] ?: 0L
+    val newValue = existingValue + by
+    this[key] = newValue
+    return newValue
+}
+
 inline fun <reified T> List<T>.repeated(n: Int): List<T> = buildList {
     repeat(n) {
         addAll(this@repeated)
