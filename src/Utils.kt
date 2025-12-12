@@ -120,7 +120,21 @@ data class Direction(val x: Int, val y: Int) {
         val DOWN = Direction(0, 1)
         val LEFT = Direction(-1, 0)
         val RIGHT = Direction(1, 0)
-        val ALL = listOf(UP, RIGHT, DOWN, LEFT)
+        val UP_LEFT = Direction(-1, -1)
+        val UP_RIGHT = Direction(1, -1)
+        val DOWN_LEFT = Direction(-1, 1)
+        val DOWN_RIGHT = Direction(1, 1)
+
+        val EIGHT_SURROUNDING_BLOCKS = listOf(
+            Direction.UP,
+            Direction.DOWN,
+            Direction.LEFT,
+            Direction.RIGHT,
+            Direction.UP_LEFT,
+            Direction.UP_RIGHT,
+            Direction.DOWN_LEFT,
+            Direction.DOWN_RIGHT,
+        )
 
         fun fromChar(value: Char): Direction = when (value) {
             '<' -> LEFT
