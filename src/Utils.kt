@@ -253,6 +253,7 @@ operator fun Position.plus(direction: Direction): Position =
     Position(x = x + direction.x, y = y + direction.y)
 
 val IntRange.simpleSize: Int get() = last - first + 1
+infix fun LongRange.isIncludedIn(other: LongRange): Boolean = first >= other.first && last <= other.last
 
 /**
  * Inspired by https://1gravityllc.medium.com/trie-kotlin-50d8ae041202
