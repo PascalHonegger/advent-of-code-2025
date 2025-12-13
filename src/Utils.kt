@@ -3,6 +3,8 @@ import kotlin.io.path.Path
 import kotlin.io.path.readText
 import kotlin.jvm.JvmInline
 import kotlin.math.abs
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 /**
  * Reads lines from the given input txt file.
@@ -108,9 +110,24 @@ data class Position(val x: Int, val y: Int) {
     override fun toString(): String = "($x, $y)"
 }
 
+data class Position3d(val x: Int, val y: Int, val z: Int) : Comparable<Position3d> {
+    override fun toString(): String = "($x, $y, $z)"
+    override fun compareTo(other: Position3d): Int {
+        return COMPARATOR.compare(this, other)
+    }
+    companion object {
+        private val COMPARATOR =
+            Comparator.comparingInt<Position3d> { it.x }
+                .thenComparingInt { it.y }
+                .thenComparingInt { it.z }
+    }
+}
+
 fun Position.manhattanDistanceTo(other: Position): Int = abs(x - other.x) + abs(y - other.y)
+fun Position3d.euclideanDistanceTo(other: Position3d): Double = sqrt(((x - other.x).toDouble().pow(2) + (y - other.y).toDouble().pow(2) + (z - other.z).toDouble().pow(2)).toDouble())
 
 fun String.toPosition(delimiter: String = ","): Position = split(delimiter).let { (x, y) -> Position(x.toInt(), y.toInt()) }
+fun String.toPosition3d(delimiter: String = ","): Position3d = split(delimiter).let { (x, y, z) -> Position3d(x.toInt(), y.toInt(), z.toInt()) }
 
 data class Direction(val x: Int, val y: Int) {
 
@@ -133,14 +150,14 @@ data class Direction(val x: Int, val y: Int) {
         val DOWN_RIGHT = Direction(1, 1)
 
         val EIGHT_SURROUNDING_BLOCKS = listOf(
-            Direction.UP,
-            Direction.DOWN,
-            Direction.LEFT,
-            Direction.RIGHT,
-            Direction.UP_LEFT,
-            Direction.UP_RIGHT,
-            Direction.DOWN_LEFT,
-            Direction.DOWN_RIGHT,
+            UP,
+            DOWN,
+            LEFT,
+            RIGHT,
+            UP_LEFT,
+            UP_RIGHT,
+            DOWN_LEFT,
+            DOWN_RIGHT,
         )
 
         fun fromChar(value: Char): Direction = when (value) {
