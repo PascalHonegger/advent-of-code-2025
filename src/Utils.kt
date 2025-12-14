@@ -33,8 +33,8 @@ fun Iterable<Long>.product(): Long = reduce(Long::times)
 fun Any?.println(): Unit = println(this)
 
 /** Converts "1 2  3" to [1, 2, 3] */
-fun String.asSpaceSeparatedInts() = split(" ").filter { it.isNotBlank() }.map { it.toInt() }
-fun String.asSpaceSeparatedLongs() = split(" ").filter { it.isNotBlank() }.map { it.toLong() }
+fun String.asSpaceSeparatedInts() = split(' ').filter { it.isNotBlank() }.map { it.toInt() }
+fun String.asSpaceSeparatedLongs() = split(' ').filter { it.isNotBlank() }.map { it.toLong() }
 
 inline fun <reified T> MutableMap<T, Int>.increase(key: T, by: Int = 1): Int {
     val existingValue = this[key] ?: 0
@@ -194,9 +194,14 @@ fun List<String>.toPointMap(): PointMap<Char> = flatMapIndexed { y, row ->
     }
 }.toMap()
 
+fun PointMap<Any>.minY() = minOf { it.key.y }
+fun PointMap<Any>.maxY() = maxOf { it.key.y }
+fun PointMap<Any>.minX() = minOf { it.key.x }
+fun PointMap<Any>.maxX() = maxOf { it.key.x }
+
 fun PointMap<Any>.printMap() {
-    for (y in 0..maxOf { it.key.y }) {
-        for (x in 0..maxOf { it.key.x }) {
+    for (y in minY()..maxY()) {
+        for (x in minX()..maxX()) {
             print(get(Position(x, y)))
         }
         kotlin.io.println()
