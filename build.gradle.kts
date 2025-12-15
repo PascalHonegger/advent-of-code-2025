@@ -2,6 +2,10 @@ plugins {
     kotlin("jvm") version "2.2.21"
 }
 
+dependencies {
+    implementation("org.choco-solver:choco-solver:5.0.0-beta.1")
+}
+
 sourceSets {
     main {
         kotlin.srcDir("src")
